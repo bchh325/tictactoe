@@ -9,7 +9,7 @@ export default function Square({ pos, handleGamePositions, handleTurn, currentTu
 
     return (
         <div className={styles.square} onClick={handleBoardValue}>
-            {}
+            {pos.value}
         </div>
     )
 }
