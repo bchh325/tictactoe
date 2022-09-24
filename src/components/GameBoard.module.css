@@ -1,0 +1,13 @@
+.board {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 150px 150px 150px;
+    grid-template-columns: 150px 150px 150px;
+    width: fit-content;
+    height: fit-content;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
