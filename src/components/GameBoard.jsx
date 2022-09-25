@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styles from './GameBoard.module.css'
 import Square from './Square';
 
-export default function GameBoard() {
+export default function GameBoard({ handleWinner }) {
 
     const [currentTurn, setCurrentTurn] = useState("")
     const [gameEnd, setGameEnd] = useState(false)
@@ -46,6 +46,7 @@ export default function GameBoard() {
                 })
             }
             if (x == 3 || o == 3) {
+                x === 3 ? handleWinner("X") : handleWinner("O") 
                 gameEndState = true
             }
         }
@@ -68,6 +69,7 @@ export default function GameBoard() {
                     })
                 }
                 if (x == 3 || o == 3) {
+                    x === 3 ? handleWinner("X") : handleWinner("O") 
                     gameEndState = true
                 }
             }
@@ -91,6 +93,7 @@ export default function GameBoard() {
                     })
                 }
                 if (x == 3 || o == 3) {
+                    x === 3 ? handleWinner("X") : handleWinner("O") 
                     gameEndState = true
                 }
             })

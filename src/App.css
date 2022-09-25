@@ -3,3 +3,40 @@
   height: 100vh;
   background-color: #34495e;
 }
+
+.GameContainer {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto
+}
+
+.GameInfoContainer {
+  height: 100px;
+}
+
+.GameInfo {
+  position: relative;
+  width: fit-content;
+  padding: 20px;
+  margin-right: 0;
+  border-radius: 4px;
+  font-size: 2em;
+  font-weight: bold;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 2px solid #000;
+  background-color: #95a5a6;
+}
+
+.disable {
+  display: none;
+}
+
+
