@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './GameBoard.module.css'
 import Square from './Square';
 
@@ -19,18 +19,20 @@ export default function GameBoard() {
         { id: 9, pos: [2, 2], value: "", }
     ])
 
-    const handleTurn = () => {
+    useEffect(() => {
         const turn = currentTurn === "X" ? "O" : "X";
         setCurrentTurn(turn)
-    }
+    }, gamePositions)
 
-    const handleGamePositions = (pos) => {
+    const handleGamePositions = (id) => {
         setGamePositions(prev => {
             return prev.map(position => {
-                if (position.id === pos.id) {
+                if (position.id === id) {
                     if (position.value === "") {
-                        console.log("EMPTY")
-                        return { ...position, value: pos.value }
+                        return { ...position, value: currentTurn }
+                    }
+                    else {
+                        return position
                     }
                 } else {
                     return position
@@ -39,10 +41,10 @@ export default function GameBoard() {
         })
     }
 
-    console.log(gamePositions)
+
     return (
         <div className={styles.board}>
-            {gamePositions.map((pos) => (<Square key={pos.id} pos={pos} handleGamePositions={handleGamePositions} handleTurn={handleTurn} currentTurn={currentTurn} />))}
+            {gamePositions.map((pos) => (<Square key={pos.id} id={pos.id} value={pos.value} handleGamePositions={handleGamePositions} />))}
         </div>
     )
 }
