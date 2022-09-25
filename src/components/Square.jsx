@@ -9,7 +9,7 @@ export default function Square({ id, handleGamePositions, value, gameEnd }) {
         }
     }
     return (
-        <div className={styles.square} onClick={handleClick}>
+        <div className={`${styles.square} ${value == "" && !gameEnd ? styles.squareTransition : ""}`} onClick={handleClick}>
             {value}
         </div>
     )
