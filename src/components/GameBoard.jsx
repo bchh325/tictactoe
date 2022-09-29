@@ -5,7 +5,7 @@ import Square from './Square';
 import _, { first } from "lodash";
 import { getSelectionRange } from '@testing-library/user-event/dist/utils';
 
-export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn }) {
+export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn, reset }) {
 
     const [movesLeft, setMovesLeft] = useState(true)
     const [gameEnd, setGameEnd] = useState(false)
@@ -20,6 +20,15 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
         { id: 8, pos: [2, 1], value: "", },
         { id: 9, pos: [2, 2], value: "", }
     ])
+
+    let resetGame = () => {
+        reset()
+        setMovesLeft(true)
+        setGameEnd(false)
+        gamePositions.forEach((e, i, arr) => {
+            arr[i].value = ""
+        })
+    }
 
     let checkGameState = (board) => {
         const diagonals = [[1, 5, 9], [3, 5, 7]]
@@ -335,8 +344,11 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
     }
 
     return (
-        <div className={styles.board}>
-            {gamePositions.map((pos) => (<Square key={pos.id} id={pos.id} value={pos.value} handleGamePositions={handleGamePositions} gameEnd={gameEnd} />))}
+        <div>
+            <div className={styles.board}>
+                {gamePositions.map((pos) => (<Square key={pos.id} id={pos.id} value={pos.value} handleGamePositions={handleGamePositions} gameEnd={gameEnd} />))}
+            </div>
+            <button className={styles.restart} onClick={() => resetGame()}>Restart</button>
         </div>
     )
 }

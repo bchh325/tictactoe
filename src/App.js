@@ -10,6 +10,13 @@ function App() {
   const [player, setPlayer] = useState([""])
   const [currentTurn, setCurrentTurn] = useState([""])
 
+
+  const reset = () => {
+    setPlayer([""])
+    setCurrentTurn([""])
+    setWinner("")
+    setStart(false)
+  }
   const handleCurrentTurn = () => {
     setCurrentTurn([currentTurn[0] === "X" ? "O" : "X"])
     console.log(currentTurn)
@@ -28,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className={`${start == true ? "disable" : "StartScreen"}`}>
+      <div className={`${start === true ? "disable" : "StartScreen"}`}>
         <StartScreen handlePlayer={handlePlayer}/>
       </div>
       <div className="GameContainer">
@@ -37,7 +44,7 @@ function App() {
             {winner} wins!
           </div>
         </div>
-        <GameBoard handleWinner={handleWinner} handleCurrentTurn={handleCurrentTurn} currentTurn={currentTurn}/>
+        <GameBoard handleWinner={handleWinner} handleCurrentTurn={handleCurrentTurn} currentTurn={currentTurn} reset={reset}/>
       </div>
     </div>
   );
