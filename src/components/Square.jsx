@@ -4,7 +4,7 @@ import styles from './Square.module.css'
 export default function Square({ id, handleGamePositions, value, gameEnd }) {
 
     const handleClick = () => {
-        if (!gameEnd) {
+        if (!gameEnd && value === "") {
             handleGamePositions(id)
         }
     }
