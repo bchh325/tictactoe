@@ -20,8 +20,8 @@ function App() {
   }
 
   const handlePlayer = (value) => {
-    setCurrentTurn([value])
     setStart(true)
+    setCurrentTurn([value])
   }
 
   console.log(player)

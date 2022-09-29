@@ -44,7 +44,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                 })
             }
             if (x == 3 || o == 3) {
-                x === 3 ? handleWinner("X") : handleWinner("O") 
+                x === 3 ? handleWinner("X") : handleWinner("O")
                 gameEndState = true
                 break
             }
@@ -68,7 +68,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                     })
                 }
                 if (x == 3 || o == 3) {
-                    x === 3 ? handleWinner("X") : handleWinner("O") 
+                    x === 3 ? handleWinner("X") : handleWinner("O")
                     gameEndState = true
                     break
                 }
@@ -88,12 +88,12 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                                 o++
                             }
                             return false
-                        } 
+                        }
                         return true
                     })
                 }
                 if (x == 3 || o == 3) {
-                    x === 3 ? handleWinner("X") : handleWinner("O") 
+                    x === 3 ? handleWinner("X") : handleWinner("O")
                     gameEndState = true
                     return false
                 }
@@ -177,7 +177,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                                 o++
                             }
                             return false
-                        } 
+                        }
                         return true
                     })
                 }
@@ -218,18 +218,21 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
     useEffect(() => {
         if (currentTurn[0] === "O") {
             let move = handleMove()
-            setGamePositions(prev => {
-                return prev.map(position => {
-                    if (position.id === move) {
-                        const modification = position.value === "" ? { ...position, value: currentTurn[0] } : position
-                        return modification
-                    } else {
-                        return position
-                    }
+            if (move !== 0) {
+                setGamePositions(prev => {
+                    return prev.map(position => {
+                        if (position.id === move) {
+                            const modification = position.value === "" ? { ...position, value: currentTurn[0] } : position
+                            return modification
+                        } else {
+                            return position
+                        }
+                    })
                 })
-            })
+            }
+
             handleCurrentTurn()
-        } 
+        }
     }, currentTurn)
 
     const handleGamePositions = (id) => {
@@ -246,15 +249,15 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                 })
             })
             handleCurrentTurn()
-        } 
+        }
     }
 
     const minimax = (board, depth, max) => {
         let score = checkGameState2(board)
-        
+
         if (score === 10) {
             return score - depth
-        } else if(score === -10) {
+        } else if (score === -10) {
             return score + depth
         }
 
@@ -291,21 +294,35 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
     function getMove(board) {
         let value = 9999
         let id = 0
+        let emptyBoard = true
 
-        //console.log(JSON.parse(JSON.stringify(board)))
-        board.forEach((element, i, arr) => {
-            if (element.value === "") {
-                arr[i].value = "O"
-                console.log(JSON.parse(JSON.stringify(board)))
-                let temp = minimax(board, 0, true)
-                arr[i].value = ""
-
-                if (temp < value) {
-                    id = element.id
-                    value = temp
-                }
+        board.forEach(element => {
+            if (element.value !== "") {
+                emptyBoard = false
             }
         })
+
+        if (emptyBoard) {
+            board[Math.floor(Math.random() * 9)].value = "O"
+        }
+
+        //console.log(JSON.parse(JSON.stringify(board)))
+        if (!emptyBoard) {
+            board.forEach((element, i, arr) => {
+                if (element.value === "") {
+                    arr[i].value = "O"
+                    console.log(JSON.parse(JSON.stringify(board)))
+                    let temp = minimax(board, 0, true)
+                    arr[i].value = ""
+
+                    if (temp < value) {
+                        id = element.id
+                        value = temp
+                    }
+                }
+            })
+        }
+
 
         return id
     }
@@ -315,7 +332,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
         let boardCopy = _.clone(gamePositions)
         let move = getMove(boardCopy)
         return move
-        }
+    }
 
     return (
         <div className={styles.board}>
