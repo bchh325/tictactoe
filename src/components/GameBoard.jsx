@@ -2,12 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import styles from './GameBoard.module.css'
 import Square from './Square';
-import _ from "lodash";
+import _, { first } from "lodash";
+import { getSelectionRange } from '@testing-library/user-event/dist/utils';
 
-export default function GameBoard({ handleWinner }) {
+export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn }) {
 
     const [movesLeft, setMovesLeft] = useState(true)
-    const [currentTurn, setCurrentTurn] = useState([""])
     const [gameEnd, setGameEnd] = useState(false)
     const [gamePositions, setGamePositions] = useState([
         { id: 1, pos: [0, 0], value: "", },
@@ -210,15 +210,12 @@ export default function GameBoard({ handleWinner }) {
         return moves
     }
 
-
     useEffect(() => {
-        setCurrentTurn(currentTurn[0] === "X" ? "O" : "X")
         checkGameState(gamePositions)
         setMovesLeft(checkMovesLeft(gamePositions))
     }, gamePositions)
 
     useEffect(() => {
-        console.log(currentTurn[0])
         if (currentTurn[0] === "O") {
             let move = handleMove()
             setGamePositions(prev => {
@@ -231,10 +228,12 @@ export default function GameBoard({ handleWinner }) {
                     }
                 })
             })
+            handleCurrentTurn()
         } 
     }, currentTurn)
 
     const handleGamePositions = (id) => {
+        console.log(currentTurn)
         if (currentTurn[0] === "X") {
             setGamePositions(prev => {
                 return prev.map(position => {
@@ -246,6 +245,7 @@ export default function GameBoard({ handleWinner }) {
                     }
                 })
             })
+            handleCurrentTurn()
         } 
     }
 
