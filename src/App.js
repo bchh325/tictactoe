@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import GameBoard from './components/GameBoard';
 import StartScreen from './components/StartScreen';
+import useWindowDimensions from './hooks/useWindowDimensions';
 
 function App() {
+  const {innerWidth: width, innerHeight: height} = useWindowDimensions()
+  document.documentElement.style.setProperty('--doc-height', `${height}px`)
+  document.documentElement.style.setProperty('--doc-width', `${width}px`)
 
   const [winner, setWinner] = useState("")
   const [start, setStart] = useState(false)

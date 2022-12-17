@@ -1,6 +1,9 @@
 .App {
   text-align: center;
   height: 100vh;
+  width: 100vw;
+  height: var(--doc-height);
+  width: var(--doc-width);
   background-color: #34495e;
 }
 
