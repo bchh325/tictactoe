@@ -40,6 +40,8 @@
   background-color: rgba(0, 0, 0, 0.6);
   height: 100%;
   width: 100%;
+  height: var(--doc-height);
+  width: var(--doc-width);
   z-index: 1;
 }
 
