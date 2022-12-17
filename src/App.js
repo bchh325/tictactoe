@@ -3,8 +3,15 @@ import './App.css';
 import GameBoard from './components/GameBoard';
 import StartScreen from './components/StartScreen';
 import useWindowDimensions from './hooks/useWindowDimensions';
+import db from './firebase';
+import { doc } from 'firebase/firestore';
+import { useFetchData } from './hooks/useFetchData';
 
 function App() {
+  const lossDocRef = doc(db, "loss_data", "losses")
+  const winDocRef = doc(db, "ties_data", "ties")
+  const tieDocRef = doc(db, "wins_data", "wins")
+
   const {innerWidth: width, innerHeight: height} = useWindowDimensions()
   document.documentElement.style.setProperty('--doc-height', `${height}px`)
   document.documentElement.style.setProperty('--doc-width', `${width}px`)
@@ -14,6 +21,11 @@ function App() {
   const [player, setPlayer] = useState([""])
   const [currentTurn, setCurrentTurn] = useState([""])
 
+  const dataSnapshot = useFetchData(docRef)
+
+  if (dataSnapshot != null) {
+    console.log(dataSnapshot.data())
+  }
 
   const reset = () => {
     setPlayer([""])
@@ -34,8 +46,6 @@ function App() {
     setStart(true)
     setCurrentTurn([value])
   }
-
-  console.log(player)
 
   return (
     <div className="App">
