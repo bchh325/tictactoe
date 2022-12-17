@@ -21,7 +21,7 @@ function App() {
   const [player, setPlayer] = useState([""])
   const [currentTurn, setCurrentTurn] = useState([""])
 
-  const dataSnapshot = useFetchData(docRef)
+  const dataSnapshot = useFetchData(lossDocRef)
 
   if (dataSnapshot != null) {
     console.log(dataSnapshot.data())
