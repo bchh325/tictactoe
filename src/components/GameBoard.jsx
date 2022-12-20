@@ -5,7 +5,7 @@ import Square from './Square';
 import _, { first } from "lodash";
 import { getSelectionRange } from '@testing-library/user-event/dist/utils';
 
-export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn, reset }) {
+export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn, reset, gameData }) {
 
     const [movesLeft, setMovesLeft] = useState(true)
     const [gameEnd, setGameEnd] = useState(false)
@@ -245,7 +245,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
     }, currentTurn)
 
     const handleGamePositions = (id) => {
-        console.log(currentTurn)
+        //console.log(currentTurn)
         if (currentTurn[0] === "X") {
             setGamePositions(prev => {
                 return prev.map(position => {
@@ -315,12 +315,12 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
             board[Math.floor(Math.random() * 9)].value = "O"
         }
 
-        //console.log(JSON.parse(JSON.stringify(board)))
+        ////console.log(JSON.parse(JSON.stringify(board)))
         if (!emptyBoard) {
             board.forEach((element, i, arr) => {
                 if (element.value === "") {
                     arr[i].value = "O"
-                    console.log(JSON.parse(JSON.stringify(board)))
+                    //console.log(JSON.parse(JSON.stringify(board)))
                     let temp = minimax(board, 0, true)
                     arr[i].value = ""
 
@@ -337,7 +337,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
     }
 
     const handleMove = () => {
-        console.log("clicked")
+        //console.log("clicked")
         let boardCopy = _.clone(gamePositions)
         let move = getMove(boardCopy)
         return move
@@ -349,6 +349,9 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
                 {gamePositions.map((pos) => (<Square key={pos.id} id={pos.id} value={pos.value} handleGamePositions={handleGamePositions} gameEnd={gameEnd} />))}
             </div>
             <button className={styles.restart} onClick={() => resetGame()}>Restart</button>
+            <p className={styles.gameData}>
+                So far: {gameData.wins} wins, {gameData.losses} losses, and {gameData.ties} ties against the AI.
+            </p>
         </div>
     )
 }

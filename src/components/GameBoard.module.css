@@ -40,3 +40,12 @@
         padding: 10px 30px;
     }
 }
+
+.gameData {
+    max-width: 100%;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    background-color: #13aa52;
+    color: #fff;
+
+}
