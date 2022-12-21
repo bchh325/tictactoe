@@ -5,7 +5,7 @@ import Square from './Square';
 import _, { first } from "lodash";
 import { getSelectionRange } from '@testing-library/user-event/dist/utils';
 
-export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn, reset, gameData }) {
+export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn, reset, gameData, handleBoardFull }) {
 
     const [movesLeft, setMovesLeft] = useState(true)
     const [gameEnd, setGameEnd] = useState(false)
@@ -21,10 +21,21 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
         { id: 9, pos: [2, 2], value: "", }
     ])
 
+    useEffect(() => {
+        let full = true
+        for (const e of gamePositions) {
+            if (e.value == "") {
+                full = false
+            }
+        }
+        handleBoardFull(full)
+    }, [gamePositions])
+
     let resetGame = () => {
         reset()
         setMovesLeft(true)
         setGameEnd(false)
+        handleBoardFull(false)
         gamePositions.forEach((e, i, arr) => {
             arr[i].value = ""
         })
@@ -112,6 +123,7 @@ export default function GameBoard({ handleWinner, handleCurrentTurn, currentTurn
 
         if (gameEndState) {
             setGameEnd(gameEndState)
+            console.log(gameEnd)
             if (x === 3) {
                 return 10
             } else {
