@@ -52,8 +52,8 @@ function App() {
     const connectDatabase = getDatabase()
 
     connectDatabase.then((e) => {
-      console.log(e)
-      console.log("setting ref")
+      //console.log(e)
+      //console.log("setting ref")
       lossDocRef = doc(db, "loss_data", "losses")
       winDocRef = doc(db, "win_data", "wins")
       tieDocRef = doc(db, "ties_data", "ties")
@@ -82,11 +82,11 @@ function App() {
       } else if (winner === "" && boardFull) {
         const updatedData = {count: data.ties += 1} 
         updateDoc(tieDocRef, updatedData)
-        console.log("updated")
+        //console.log("updated")
       }
 
-      console.log("modification")
-      console.log(data)
+      //console.log("modification")
+      //console.log(data)
     }).then(() => {
       setRecords()
     })
@@ -94,7 +94,7 @@ function App() {
 
   const getRecords = async () => {
     const data = { losses: null, wins: null, ties: null }
-    console.log("grabbing records")
+    //console.log("grabbing records")
     try {
       const lossDocSnap = await getDoc(lossDocRef);
       const winDocSnap = await getDoc(winDocRef);
@@ -104,11 +104,11 @@ function App() {
       data.wins = winDocSnap.data().count
       data.ties = tieDocSnap.data().count
     } catch (error) {
-      console.log(error)
+      //console.log(error)
     }
 
-    console.log("return")
-    console.log(data)
+    //console.log("return")
+    //console.log(data)
     return data
   }
 
@@ -116,8 +116,8 @@ function App() {
     const connectDatabase = getDatabase()
 
     connectDatabase.then((e) => {
-      console.log(e)
-      console.log("setting ref")
+      //console.log(e)
+      //console.log("setting ref")
       lossDocRef = doc(db, "loss_data", "losses")
       winDocRef = doc(db, "win_data", "wins")
       tieDocRef = doc(db, "ties_data", "ties")
@@ -144,7 +144,7 @@ function App() {
   }
   const handleCurrentTurn = () => {
     setCurrentTurn([currentTurn[0] === "X" ? "O" : "X"])
-    console.log(currentTurn)
+    //console.log(currentTurn)
   }
 
   const handleWinner = (value) => {
