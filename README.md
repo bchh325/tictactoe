@@ -1,7 +1,6 @@
-# Objectives
-
 https://bchh325.github.io/tictactoe/
 
-- Understanding Minimax algorithm
-- Learn how to use an online database for data persistence
-- Gain more practice in React
+Implemented the Minimax algorithm in Tic-Tac-Toe using React and <br>
+used Cloud Firestore to track global wins/losses/draws against the AI.
+
+
